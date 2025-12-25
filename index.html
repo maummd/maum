@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>순생명통합교회 (FLINT Church)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 디자인 변수 설정 (컬러 팔레트) */
+        :root {
+            --primary-color: #0A4F55; /* 깊은 틸 그린 (Deep Teal) - 신뢰, 생명 */
+            --secondary-color: #147D87; /* 밝은 틸 */
+            --accent-color: #CFA75F; /* 웜 골드 (Warm Gold) - 영광, 따뜻함 */
+            --text-dark: #2C3E50; /* 짙은 회색 텍스트 */
+            --text-light: #5F6F81; /* 부드러운 회색 텍스트 */
+            --bg-light: #F9FBF8; /* 아주 밝은 크림색 배경 */
+            --bg-white: #FFFFFF;
+            --shadow-soft: 0 10px 30px -10px rgba(10, 79, 85, 0.15);
+            --border-radius: 16px;
+        }
+        
+        /* 기본 스타일 리셋 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif; /* 제목용 세리프 폰트 */
+            color: var(--primary-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        /* 공통 컨테이너 */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 섹션 공통 스타일 */
+        section {
+            padding: 5rem 0; /* 상하 여백을 늘려 시원하게 */
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* 제목 밑 장식 선 */
+        .section-header h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-color);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* 헤더 및 네비게이션 */
+        header {
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+        }
+
+        /* 네비게이션 호버 효과 (밑줄) */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-btn {
+            background-color: var(--primary-color);
+            color: white !important;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(10, 79, 85, 0.2);
+        }
+        
+        .nav-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        .nav-btn:hover::after { width: 0; } /* 버튼은 밑줄 제외 */
+
+
+        /* 히어로 섹션 (메인 배너) */
+        .hero {
+            /* 감성적인 배경 이미지 (예: 빛이 들어오는 숲 또는 예배당) */
+            background: linear-gradient(135deg, rgba(10, 79, 85, 0.85) 0%, rgba(20, 125, 135, 0.6) 100%), url('https://images.unsplash.com/photo-1438032005730-c779502df39b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+            height: 90vh; /* 화면 높이의 90% */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* 메인 버튼 스타일 */
+        .main-btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--accent-color), #e0c080);
+            color: var(--text-dark);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(207, 167, 95, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .main-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(207, 167, 95, 0.5);
+        }
+
+        /* 교회 소개 섹션 */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+        
+        .Highlight-box {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            border-left: 5px solid var(--accent-color);
+            box-shadow: var(--shadow-soft);
+            margin-top: 2rem;
+        }
+
+        /* 역사 타임라인 - 디자인 개선 */
+        .history-timeline {
+            position: relative;
+            padding: 20px 0;
+            margin-top: 3rem;
+        }
+        
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: rgba(10, 79, 85, 0.2);
+        }
+
+        .history-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 30px;
+        }
+
+        .history-item::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 3px rgba(207, 167, 95, 0.2);
+        }
+
+        .history-year {
+            font-weight: 800;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* 사역 카드 (현대적인 카드 디자인) */
+        .ministry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .ministry-card {
+            background: var(--bg-white);
+            padding: 3rem 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-soft);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .ministry-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px -10px rgba(10, 79, 85, 0.2);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .ministry-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+        
+        .ministry-list {
+            list-style: none;
+            color: var(--text-light);
+            text-align: left;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+        
+        .ministry-list li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .ministry-list li i {
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* 신앙 고백 섹션 */
+        .beliefs-section {
+            background-color: var(--bg-white);
+        }
+        
+        .belief-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .belief-item {
+            background: var(--bg-light);
+            border-left: 4px solid var(--primary-color);
+            padding: 25px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .belief-item h4 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .belief-item h4 i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
+        /* 푸터 - 모던한 다크 테마 */
+        footer {
+            background-color: #1A252F; /* 아주 어두운 네이비 */
+            color: #bdc3c7;
+            padding: 5rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        
+        .footer-title {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer-contact p {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .footer-contact i {
+            margin-right: 15px;
+            color: var(--accent-color);
+            margin-top: 5px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            color: white;
+            background-color: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .social-link i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        /* 애니메이션 효과 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 모바일 반응형 대응 */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.2rem; }
+            .hero-content .subtitle { font-size: 1rem; }
+            .nav-links { display: none; } /* 모바일 메뉴는 추후 구현 필요 */
+            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .section-header h2 { font-size: 2rem; }
+            .belief-cards { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fas fa-church"></i> FLINT Church
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#about">교회소개</a></li>
+                    <li><a href="#ministry">사역활동</a></li>
+                    <li><a href="#beliefs">신앙고백</a></li>
+                    <li><a href="#contact" class="nav-btn">문의하기</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>The Biblical & Christlike<br>Integration Ministry</h1>
+            <p class="subtitle">전세계 지속 가능한 부흥을 위한<br>성경적이고 그리스도를 닮은 통합사역, 순생명통합교회</p>
+            <a href="#contact" class="main-btn">예배 안내 및 환영인사</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Us</h2>
+                <p>순생명통합교회(FLINT Church)는 믿음과 삶의 모든 영역을 통합하는 로컬/글로벌 공동체입니다.</p>
+            </div>
+            
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1544735716-392c5497865a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="교회 커뮤니티">
+                </div>
+                <div class="about-text">
+                    <h3>통합과 부흥을 향한 비전</h3>
+                    <p>우리는 믿음과 과학, 건강, 문화, 스포츠를 통합하며, 그리스도를 닮은 지도자들과 함께 아름다운 교회 공동체를 세워갑니다. 현재 미국, 한국, 케냐 등 전 세계 40여 개의 교회와 함께하고 있습니다.</p>
+                    
+                    <div class="Highlight-box">
+                        <h4>핵심 비전 (Core Vision)</h4>
+                        <ul class="ministry-list">
+                            <li><i class="fas fa-check-circle"></i>성경을 통한 모든 인간 지식의 통합</li>
+                            <li><i class="fas fa-check-circle"></i>지역 및 세계 교회의 지속 가능한 부흥</li>
+                            <li><i class="fas fa-check-circle"></i>유럽 교회 부흥 및 세계 복음화</li>
+                            <li><i class="fas fa-check-circle"></i>그리스도를 닮은 제자 양육</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 5rem;">
+                 <h3 style="text-align: center; margin-bottom: 2rem;">Our History</h3>
+                 <div class="history-timeline">
+                    <div class="history-item">
+                        <div class="history-year">2001</div>
+                        <p>8월 26일, 김야곱/메리 김 목사 부부 가정에서 성경공부 모임으로 시작</p>
+                    </div>
+                    <div class="history-item">
+                        <div class="history-year">2006</div>
+                        <p>김야곱 선교사 복음주의 언약교회(ECC) 목사 안수</p>
+                    </div>
+                    <div class="history-item">
+                        <div class="history-year">2010</div>
+                        <p>한국 순생명통합교회(FLINT Church of Korea) 설립</p>
+                    </div>
+                    <div class="history-item">
+                        <div class="history-year">2020 - Present</div>
+                        <p>팬데믹 중에도 케냐, 인도 등 전 세계 40여 개 교회로 사역 확장</p>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </section>
+
+    <section id="ministry" style="background-color: #f0f4f8;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Ministries</h2>
+                <p>FLINT Church는 다양한 통합 사역을 통해 하나님 나라를 확장해 나갑니다.</p>
+            </div>
+            
+            <div class="ministry-grid">
+                <div class="ministry-card">
+                    <i class="fas fa-book-open card-icon"></i>
+                    <h3>예배 및 교육</h3>
+                    <ul class="ministry-list">
+                        <li><i class="fas fa-caret-right"></i> 주일 예배 (오후 3시)</li>
+                        <li><i class="fas fa-caret-right"></i> 1:1 및 그룹 성경공부 (Zoom/대면)</li>
+                        <li><i class="fas fa-caret-right"></i> 히브리어/헬라어 원어 성경 연구</li>
+                    </ul>
+                </div>
+                <div class="ministry-card">
+                    <i class="fas fa-palette card-icon"></i>
+                    <h3>문화 및 학술</h3>
+                    <ul class="ministry-list">
+                        <li><i class="fas fa-caret-right"></i> 하나님-자연-인간 문화축제</li>
+                        <li><i class="fas fa-caret-right"></i> 르네상스 II 시/문학 수업</li>
+                        <li><i class="fas fa-caret-right"></i> 그리스도를 닮은 리더십 컨퍼런스</li>
+                    </ul>
+                </div>
+                <div class="ministry-card">
+                    <i class="fas fa-hand-holding-heart card-icon"></i>
+                    <h3>나눔과 섬김</h3>
+                    <ul class="ministry-list">
+                        <li><i class="fas fa-caret-right"></i> 크리스마스 준비 죽, 깻잎 나눔</li>
+                        <li><i class="fas fa-caret-right"></i> 추수감사절 5곡 2과 축복음식 나눔</li>
+                        <li><i class="fas fa-caret-right"></i> 어르신들을 위한 국보급 사역</li>
+                    </ul>
+                </div>
+                <div class="ministry-card">
+                    <i class="fas fa-globe-africa card-icon"></i>
+                    <h3>글로벌 미션</h3>
+                    <ul class="ministry-list">
+                        <li><i class="fas fa-caret-right"></i> 지속가능한 세계 부흥선교 대회</li>
+                        <li><i class="fas fa-caret-right"></i> 국제 샬롬 게임 개최</li>
+                        <li><i class="fas fa-caret-right"></i> 교회 농장 사역 (준비 중)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="beliefs" class="beliefs-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Statement of Faith</h2>
+                <p>우리는 사도신경과 니케아 신경을 고백하며, 신구약 성경을 유일하고 정확한 믿음의 기준으로 삼습니다.</p>
+            </div>
+            
+            <div class="belief-cards">
+                <div class="belief-item">
+                    <h4><i class="fas fa-cross"></i> 삼위일체 하나님 (The Triune God)</h4>
+                    <p>사랑과 능력이 무한하시며, 성부, 성자, 성령으로 존재하시는 살아계신 한 하나님을 믿습니다.</p>
+                </div>
+                <div class="belief-item">
+                    <h4><i class="fas fa-leaf"></i> 창조 (Creation)</h4>
+                    <p>하나님께서 태초에 말씀과 성령으로 엿새 동안 무에서 유를 창조하셨음을 믿습니다.</p>
+                </div>
+                <div class="belief-item">
+                    <h4><i class="fas fa-heart"></i> 예수 그리스도와 구원 (Salvation)</h4>
+                    <p>하나님의 아들 예수 그리스도의 속죄의 죽음과 부활을 믿는 자를 은혜로 의롭다 하심을 믿습니다.</p>
+                </div>
+                <div class="belief-item">
+                    <h4><i class="fas fa-dove"></i> 성령과 교회 (Holy Spirit & Church)</h4>
+                    <p>성령께서 믿는 자를 거룩하게 하시며, 교회는 예수님을 구주로 고백하는 이들의 모임임을 믿습니다.</p>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 2rem; color: var(--text-light);"><small>* 전체 12개 조항은 교회 정관을 참조해주세요.</small></p>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="#" class="footer-logo">FLINT Church</a>
+                    <p style="opacity: 0.8; margin-bottom: 1.5rem;">The Biblical & Christlike Integration Ministry for the Sustainable Revival Worldwide</p>
+                     <a href="https://www.facebook.com/fulllifetempl" target="_blank" class="social-link">
+                        <i class="fab fa-facebook-f"></i> Facebook 연결
+                    </a>
+                </div>
+                <div class="footer-contact">
+                    <h4 class="footer-title">Contact Us</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 8333 Niles Center Rd, Skokie, IL 60077, USA</p>
+                    <p><i class="fas fa-phone-alt"></i> (773) 848-2234</p>
+                    <p><i class="fas fa-envelope"></i> goldenbellsound@gmail.com<br>(Pastor Dr. Jacob Kim)</p>
+                </div>
+                <div>
+                     <h4 class="footer-title">Service Times</h4>
+                     <ul style="list-style: none; opacity: 0.9;">
+                         <li style="margin-bottom: 0.5rem;"><strong>주일 예배:</strong> 오후 3:00</li>
+                         <li style="margin-bottom: 0.5rem;"><strong>성경 공부:</strong> 주중 (Zoom/대면)</li>
+                         <li><small>* 자세한 시간은 문의 바랍니다.</small></li>
+                     </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Full Life Integration Church. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
